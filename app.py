@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Mariela@localhost:3308/chatdb'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:@localhost/chatdb'
 # URI de la BBDD driver de la BD user:clave@URLBBDD/nombreBBDD
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False #none
 db= SQLAlchemy(app) #crea el objeto db de la clase SQLAlquemy
@@ -64,14 +64,30 @@ def loging():
 def login_form():
     data = request.form
     print(data)
+    user = data['user']
+    password = data['password']
+    print(user)
+    print(password)
+    print(User.name.get(str(user)))
     return render_template("index.html")
 
-
+ 
 @app.route('/singup')
 def singup():
     return render_template("singup.html")
 
-
+@app.route('/singup-form',methods=['POST'])
+def singup_form():
+    data = request.form
+    print(data)
+    user = data['user']
+    password = data['password']
+    print(user)
+    print(password)
+    new_user = User(user,password)
+    db.session.add(new_user)
+    db.session.commit()
+    return render_template('chat.html')
 
 if __name__=='__main__':
     app.run(debug=True, port=5000)

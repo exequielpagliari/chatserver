@@ -62,9 +62,9 @@ def loging():
 
 @app.route('/loging-form',methods=['POST'])
 def login_form():
-    return {
-        data = request.form
-    }
+    data = request.form
+    print(data)
+    return render_template("index.html")
 
 
 @app.route('/singup')

@@ -111,13 +111,14 @@ def chat():
     return "chat.html"
 
 @socketio.on('my event')
-def handle_message(data=None,user_name=None,message=None):
+def handle_message(data):
     print(data)
 
 
 @socketio.on('message')
-def handle_message(user_name=None,message=None):
-    print(user_name)
+def handle_message(data):
+    print(data)
+    socketio.emit('respuesta', {'user_name': data['user_name'], 'message':data['message']})
 
 
 if __name__=='__main__':

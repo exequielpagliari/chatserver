@@ -1,0 +1,8 @@
+.chat{
+    display:flex;
+    margin-left: 1rem;
+}
+
+.chat div{
+    margin-left: 1rem;
+}

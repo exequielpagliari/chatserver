@@ -108,15 +108,17 @@ def singup_form(status=None):
 @app.route('/chat')
 def chat():
     print(user_log_ok)
-    return render_template("chat.html")
+    return "chat.html"
 
 @socketio.on('my event')
-def handle_message(data):
-    print(data['data'])
+def handle_message(data=None,user_name=None,message=None):
+    print(data)
 
-@socketio.event
-def my_custom_event(arg1, arg2, arg3):
-    print('received args: ' + arg1 + arg2 + arg3)
+
+@socketio.on('message')
+def handle_message(user_name=None,message=None):
+    print(user_name)
+
 
 if __name__=='__main__':
     socketio.run(app)
